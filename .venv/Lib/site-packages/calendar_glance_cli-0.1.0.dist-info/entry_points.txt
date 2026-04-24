@@ -1,2 +1,0 @@
-[console_scripts]
-calendar-glance = calendar_glance_cli.cli:main
