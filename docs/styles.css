@@ -1,0 +1,144 @@
+:root {
+    --ink: #10212f;
+    --muted: #5b7284;
+    --paper: #eef7fb;
+    --card: #ffffff;
+    --accent: #0e8ca8;
+    --accent-soft: #d8f3fa;
+    --border: #cae4ec;
+    --radius: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    background:
+        linear-gradient(180deg, rgba(14, 140, 168, 0.10), transparent 28%),
+        var(--paper);
+    color: var(--ink);
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.hero {
+    padding: 88px 0 60px;
+}
+
+.hero-panel {
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5fdff 100%);
+    border: 1px solid var(--border);
+    padding: 44px;
+    box-shadow: 0 18px 40px rgba(16, 33, 47, 0.10);
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    margin-bottom: 14px;
+}
+
+h1 {
+    margin: 0 0 16px;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 0.95;
+}
+
+h2 {
+    margin: 0 0 18px;
+    font-size: 1.6rem;
+}
+
+.tagline {
+    max-width: 680px;
+    color: var(--muted);
+    font-size: 1.15rem;
+    margin-bottom: 24px;
+}
+
+.actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.btn-primary {
+    color: white;
+    background: var(--accent);
+}
+
+.btn-secondary {
+    color: var(--ink);
+    background: var(--accent-soft);
+}
+
+main section {
+    padding: 16px 0 54px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 24px;
+}
+
+.card p,
+.bullet-list li,
+.site-footer {
+    color: var(--muted);
+}
+
+.bullet-list {
+    margin: 12px 0 0;
+    padding-left: 18px;
+}
+
+.code-block {
+    background: #072c35;
+    color: #eef7fb;
+    border-radius: var(--radius);
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.code-block code {
+    white-space: pre;
+    line-height: 1.7;
+    font-family: Consolas, "Courier New", monospace;
+}
+
+.site-footer {
+    text-align: center;
+    padding: 20px 0 56px;
+}
+
+@media (max-width: 720px) {
+    .hero-panel {
+        padding: 28px 22px;
+    }
+}

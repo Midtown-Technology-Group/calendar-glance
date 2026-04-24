@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Glance CLI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <div class="hero-panel">
+                <div class="eyebrow">Midtown Toy Chest</div>
+                <h1>Calendar Glance CLI</h1>
+                <p class="tagline">A read-only Microsoft 365 agenda snapshot for fast daily planning and machine-friendly upcoming-event output.</p>
+                <div class="actions">
+                    <a class="btn btn-primary" href="https://github.com/Midtown-Technology-Group/calendar-glance">View on GitHub</a>
+                    <a class="btn btn-secondary" href="#install">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="container">
+                <div class="grid">
+                    <article class="card">
+                        <h2>Scope</h2>
+                        <p>Uses `Calendars.Read` only and stays inside the already-proven shared app consent surface.</p>
+                    </article>
+                    <article class="card">
+                        <h2>Command</h2>
+                        <ul class="bullet-list">
+                            <li><code>agenda</code> for upcoming calendar events</li>
+                            <li><code>--calendar</code> to target a named calendar</li>
+                            <li><code>--output json</code> for scripts</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h2>Auth</h2>
+                        <p>Uses the shared Windows-first Microsoft auth library with WAM as the expected path.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="install">
+            <div class="container">
+                <h2>Quick Start</h2>
+                <div class="code-block"><code>$env:CALENDAR_GLANCE_CLIENT_ID='e02be6f7-063a-46a6-b2cc-109d5f51055c'
+$env:CALENDAR_GLANCE_TENANT_ID='a3599b15-c39c-4b41-a219-7e24dd5b5190'
+$env:CALENDAR_GLANCE_SCOPES='Calendars.Read'
+$env:CALENDAR_GLANCE_AUTH_MODE='wam'
+$env:CALENDAR_GLANCE_ALLOW_BROKER='true'
+.\invoke.ps1 agenda --days 3</code></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>Midtown Technology Group · GitHub Pages project site</p>
+        </div>
+    </footer>
+</body>
+</html>
