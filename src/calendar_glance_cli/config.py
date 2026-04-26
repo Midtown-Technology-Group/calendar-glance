@@ -5,6 +5,7 @@ import os
 from mtg_microsoft_auth import AuthConfig, AuthMode
 
 REQUIRED_SCOPE = "Calendars.Read"
+DEFAULT_CACHE_NAMESPACE = "mtg-shared-microsoft-auth"
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -25,7 +26,8 @@ def load_auth_config() -> AuthConfig:
         tenant_id=os.environ.get("CALENDAR_GLANCE_TENANT_ID", "common"),
         scopes=configured_scopes(),
         mode=AuthMode(os.environ.get("CALENDAR_GLANCE_AUTH_MODE", "wam")),
-        cache_namespace="calendar-glance-cli",
+        cache_namespace=os.environ.get("MTG_AUTH_CACHE_NAMESPACE", DEFAULT_CACHE_NAMESPACE),
+        account_hint=os.environ.get("MTG_AUTH_ACCOUNT_HINT"),
         allow_broker=_env_bool("CALENDAR_GLANCE_ALLOW_BROKER", True),
     )
 

@@ -20,6 +20,8 @@ $env:CALENDAR_GLANCE_AUTH_MODE='wam'
 $env:CALENDAR_GLANCE_ALLOW_BROKER='true'
 ```
 
+This toy now shares the Midtown Graph token cache with the other local toys by default, so a successful WAM sign-in in one toy should usually carry across the others. Set `MTG_AUTH_CACHE_NAMESPACE` only when you want a separate cache for testing. If your broker has multiple signed-in Microsoft accounts, set `MTG_AUTH_ACCOUNT_HINT` to the preferred UPN so silent reuse picks the right account before prompting.
+
 ## Usage
 
 ```powershell
