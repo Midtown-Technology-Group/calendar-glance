@@ -6,6 +6,7 @@ from mtg_microsoft_auth import AuthConfig, AuthMode
 
 REQUIRED_SCOPE = "Calendars.Read"
 DEFAULT_CACHE_NAMESPACE = "mtg-shared-microsoft-auth"
+DEFAULT_CLIENT_ID = "e02be6f7-063a-46a6-b2cc-109d5f51055c"
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -22,7 +23,7 @@ def configured_scopes() -> list[str]:
 
 def load_auth_config() -> AuthConfig:
     return AuthConfig(
-        client_id=os.environ.get("CALENDAR_GLANCE_CLIENT_ID", "11111111-1111-1111-1111-111111111111"),
+        client_id=os.environ.get("CALENDAR_GLANCE_CLIENT_ID", DEFAULT_CLIENT_ID),
         tenant_id=os.environ.get("CALENDAR_GLANCE_TENANT_ID", "common"),
         scopes=configured_scopes(),
         mode=AuthMode(os.environ.get("CALENDAR_GLANCE_AUTH_MODE", "wam")),
