@@ -1,6 +1,7 @@
 from typer.testing import CliRunner
 
 from calendar_glance_cli.cli import app
+from calendar_glance_cli.config import DEFAULT_CLIENT_ID, load_auth_config
 from calendar_glance_cli.models import CalendarEvent
 
 
@@ -36,3 +37,21 @@ def test_missing_scope_explains_required_calendar_permission(monkeypatch):
 
     assert result.exit_code != 0
     assert "Calendars.Read" in result.stdout
+
+
+def test_load_auth_config_defaults_to_shared_client_id(monkeypatch):
+    monkeypatch.delenv("CALENDAR_GLANCE_CLIENT_ID", raising=False)
+    monkeypatch.setenv("CALENDAR_GLANCE_AUTH_MODE", "wam")
+
+    config = load_auth_config()
+
+    assert config.client_id == DEFAULT_CLIENT_ID
+
+
+def test_load_auth_config_allows_client_id_override(monkeypatch):
+    monkeypatch.setenv("CALENDAR_GLANCE_CLIENT_ID", "11111111-1111-1111-1111-111111111112")
+    monkeypatch.setenv("CALENDAR_GLANCE_AUTH_MODE", "wam")
+
+    config = load_auth_config()
+
+    assert config.client_id == "11111111-1111-1111-1111-111111111112"
