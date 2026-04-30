@@ -41,6 +41,7 @@ def test_missing_scope_explains_required_calendar_permission(monkeypatch):
 
 def test_load_auth_config_defaults_to_shared_client_id(monkeypatch):
     monkeypatch.delenv("CALENDAR_GLANCE_CLIENT_ID", raising=False)
+    monkeypatch.setenv("CALENDAR_GLANCE_AUTH_MODE", "wam")
 
     config = load_auth_config()
 
@@ -49,6 +50,7 @@ def test_load_auth_config_defaults_to_shared_client_id(monkeypatch):
 
 def test_load_auth_config_allows_client_id_override(monkeypatch):
     monkeypatch.setenv("CALENDAR_GLANCE_CLIENT_ID", "11111111-1111-1111-1111-111111111112")
+    monkeypatch.setenv("CALENDAR_GLANCE_AUTH_MODE", "wam")
 
     config = load_auth_config()
 
