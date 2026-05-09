@@ -34,6 +34,10 @@ This toy now shares the Midtown Graph token cache with the other local toys by d
 
 - `agenda`: Show upcoming events from the signed-in user's calendar.
 
+## Windows MSI
+
+GitHub releases can publish a Windows MSI for `calendar-glance`. The MSI installs per-machine under `Program Files` and adds the install folder to the system `PATH`, so installation requires administrator rights. If Windows blocks installation or PATH updates, rerun the installer from an elevated shell or contact IT.
+
 ## Project Site
 
 This repo includes a lightweight GitHub Pages site in `docs/`.
