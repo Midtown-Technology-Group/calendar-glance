@@ -28,7 +28,11 @@ This toy now shares the Midtown Graph token cache with the other local toys by d
 .\invoke.ps1 agenda --days 1
 .\invoke.ps1 agenda --calendar "Calendar" --days 7
 .\invoke.ps1 --output json agenda --days 3
+.\invoke.ps1 agenda --timezone "America/New_York"
 ```
+
+Agenda output defaults to this machine's local timezone. Set
+`CALENDAR_GLANCE_TIMEZONE` or pass `--timezone` to force another IANA timezone.
 
 ## Commands
 
