@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import os
+
 import typer
 from mtg_microsoft_auth import GraphAuthSession, GraphClient
+from tzlocal import get_localzone_name
 
 from calendar_glance_cli.config import REQUIRED_SCOPE, has_required_scope, load_auth_config
 from calendar_glance_cli.output import OutputRenderer
@@ -9,6 +12,11 @@ from calendar_glance_cli.repository import CalendarRepository
 from calendar_glance_cli.service import CalendarGlanceService
 
 app = typer.Typer(help="Read-only Microsoft 365 calendar glance.")
+FALLBACK_TIMEZONE = "UTC"
+
+
+def default_timezone() -> str:
+    return os.environ.get("CALENDAR_GLANCE_TIMEZONE") or get_localzone_name() or FALLBACK_TIMEZONE
 
 
 def build_service() -> CalendarGlanceService:
@@ -18,8 +26,8 @@ def build_service() -> CalendarGlanceService:
     return CalendarGlanceService(repo)
 
 
-def _renderer(output: str) -> OutputRenderer:
-    return OutputRenderer(mode=output)
+def _renderer(output: str, timezone_name: str) -> OutputRenderer:
+    return OutputRenderer(mode=output, timezone_name=timezone_name)
 
 
 def _require_scope() -> None:
@@ -46,10 +54,16 @@ def agenda(
     days: int = typer.Option(1, "--days", min=1, max=30),
     limit: int = typer.Option(20, "--limit", "-n", min=1, max=100),
     calendar_name: str | None = typer.Option(None, "--calendar"),
+    timezone_name: str | None = typer.Option(
+        None,
+        "--timezone",
+        "-z",
+        help="IANA timezone for rendered event times. Defaults to this machine's timezone.",
+    ),
 ) -> None:
     _require_scope()
     rows = build_service().agenda(days=days, limit=limit, calendar_name=calendar_name)
-    _renderer(ctx.obj["output"]).render_events(rows)
+    _renderer(ctx.obj["output"], timezone_name or default_timezone()).render_events(rows)
 
 
 def main() -> None:
