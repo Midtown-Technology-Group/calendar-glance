@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -45,7 +46,13 @@ class CalendarRepository:
     def _event_datetime(value: dict | None) -> str:
         if not value or not value.get("dateTime"):
             return ""
-        timestamp = value["dateTime"]
+        # Python 3.10 accepts only three or six fractional digits. Graph sends
+        # up to seven, so truncate sub-microsecond precision and pad shorter forms.
+        timestamp = re.sub(
+            r"(\d{2}:\d{2}:\d{2})\.(\d+)",
+            lambda match: f"{match[1]}.{match[2][:6].ljust(6, '0')}",
+            value["dateTime"],
+        )
         parsed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
         if parsed.tzinfo is None:
             # Graph uses Windows names as well as IANA names. Missing metadata
