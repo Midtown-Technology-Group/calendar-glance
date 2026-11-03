@@ -9,3 +9,15 @@ Python >=3.10 and the development dependencies are declared in `pyproject.toml`.
 The documented live command is `.\invoke.ps1 agenda --days 1`; it accesses the signed-in user's calendar and is not an offline test. Use authorized account scope and redact personal information in evidence.
 
 Release packaging is in `packaging/windows/` and `.github/workflows/release-msi.yml`. MSI installation is per-machine and needs elevation; release tags use `vX.Y.Z`. Preserve installer checksum/ProductCode and downstream mtg-winget dispatch semantics. The Sonar job can skip without a token and is not a test suite. Report unit tests, live agenda validation and MSI/release evidence separately; updating source does not authorize publishing or installing it.
+
+## Secret gate before publication
+
+Before publishing the current PR branch, commit the complete candidate and run
+`python3 scripts/secret_gate.py` (native Windows: `python`). Require exit 0;
+missing tooling/authentication, scan errors and skipped scans block publication.
+Then run the existing repository gates. Repeat after changing outgoing commits.
+Push exactly the scanned HEAD. This PR scan covers the current branch against its
+fetched intended base; other refs, multi-ref pushes and rewritten history require
+`--pre-push` with Git's complete ref-update stream. Stop if any pushed ref is
+uncovered. See [secret scanning](SECRET-SCANNING.md) for base selection, new branches,
+pre-push input and prerequisites. Preserve GitGuardian App, CI and Gitleaks checks.
